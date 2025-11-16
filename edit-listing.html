@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <title>Editar Anúncio</title>
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<header class="site-header">
+    <h1>Editar Anúncio</h1>
+    <nav>
+        <a href="/">Início</a>
+        <a href="/listings">Meus anúncios</a>
+        <form class="inline-form" method="POST" action="/logout">
+            <button type="submit">Sair (<%= currentUser ? currentUser.name : '' %>)</button>
+        </form>
+    </nav>
+</header>
+
+<main class="container">
+    <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+    <form class="form" method="POST" action="/listings/<%= listing.id %>/edit">
+        <label>Título
+            <input type="text" name="title" value="<%= listing.title %>" required />
+        </label>
+        <label>Tipo
+            <select name="type" required>
+                <option value="venda" <%= listing.type === 'venda' ? 'selected' : '' %>>Venda</option>
+                <option value="locacao" <%= listing.type === 'locacao' ? 'selected' : '' %>>Locação</option>
+                <option value="troca" <%= listing.type === 'troca' ? 'selected' : '' %>>Troca</option>
+            </select>
+        </label>
+        <label>Preço (R$)
+            <input type="number" name="price" step="0.01" min="0" value="<%= Number(listing.price) %>" required />
+        </label>
+        <label>Localização
+            <input type="text" name="location" value="<%= listing.location %>" required />
+        </label>
+        <label>Descrição
+            <textarea name="description" rows="4"><%= listing.description || '' %></textarea>
+        </label>
+        <button type="submit">Salvar alterações</button>
+    </form>
+</main>
+
+<footer class="site-footer">
+    <p>&copy; <%= new Date().getFullYear() %> Imóveis</p>
+</footer>
+</body>
+</html>

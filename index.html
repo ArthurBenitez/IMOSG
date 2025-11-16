@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <title>Imóveis - Listagem Pública</title>
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<header class="site-header">
+    <h1>Imóveis - Listagem Pública</h1>
+    <nav>
+        <a href="/">Início</a>
+        <% if (!currentUser) { %>
+            <a href="/login">Login</a>
+            <a href="/register">Cadastro</a>
+        <% } else { %>
+            <a href="/listings">Meus anúncios</a>
+            <a href="/listings/new">Novo anúncio</a>
+            <form class="inline-form" method="POST" action="/logout">
+                <button type="submit">Sair (<%= currentUser.name %>)</button>
+            </form>
+        <% } %>
+    </nav>
+</header>
+
+<main class="container">
+    <section class="cards">
+        <% if (listings && listings.length) { %>
+            <% listings.forEach(item => { %>
+                <article class="card">
+                    <h2><%= item.title %></h2>
+                    <p><strong>Tipo:</strong> <%= item.type %></p>
+                    <p><strong>Preço:</strong> R$ <%= Number(item.price).toFixed(2) %></p>
+                    <p><strong>Localização:</strong> <%= item.location %></p>
+                    <% if (item.description) { %>
+                        <p><%= item.description %></p>
+                    <% } %>
+                    <p class="owner">Anunciante: <%= item.owner_name %></p>
+                    <p class="date">Publicado em: <%= new Date(item.created_at).toLocaleString('pt-BR') %></p>
+                </article>
+            <% }); %>
+        <% } else { %>
+            <p>Nenhum anúncio encontrado.</p>
+        <% } %>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <p>&copy; <%= new Date().getFullYear() %> Imóveis</p>
+</footer>
+</body>
+</html>

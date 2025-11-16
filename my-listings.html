@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <title>Meus Anúncios</title>
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<header class="site-header">
+    <h1>Meus Anúncios</h1>
+    <nav>
+        <a href="/">Início</a>
+        <a href="/listings/new">Novo anúncio</a>
+        <form class="inline-form" method="POST" action="/logout">
+            <button type="submit">Sair (<%= currentUser ? currentUser.name : '' %>)</button>
+        </form>
+    </nav>
+</header>
+
+<main class="container">
+    <section class="cards">
+        <% if (listings && listings.length) { %>
+            <% listings.forEach(item => { %>
+                <article class="card">
+                    <h2><%= item.title %></h2>
+                    <p><strong>Tipo:</strong> <%= item.type %></p>
+                    <p><strong>Preço:</strong> R$ <%= Number(item.price).toFixed(2) %></p>
+                    <p><strong>Localização:</strong> <%= item.location %></p>
+                    <% if (item.description) { %>
+                        <p><%= item.description %></p>
+                    <% } %>
+                    <div class="actions">
+                        <a class="btn" href="/listings/<%= item.id %>/edit">Editar</a>
+                        <form class="inline-form" method="POST" action="/listings/<%= item.id %>/delete" onsubmit="return confirm('Deseja excluir este anúncio?');">
+                            <button class="btn danger" type="submit">Excluir</button>
+                        </form>
+                    </div>
+                    <p class="date">Atualizado: <%= item.updated_at ? new Date(item.updated_at).toLocaleString('pt-BR') : '—' %></p>
+                </article>
+            <% }); %>
+        <% } else { %>
+            <p>Você ainda não possui anúncios. <a href="/listings/new">Crie o primeiro</a>.</p>
+        <% } %>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <p>&copy; <%= new Date().getFullYear() %> Imóveis</p>
+</footer>
+</body>
+</html>

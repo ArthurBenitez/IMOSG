@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<header class="site-header">
+    <h1>Criar Conta</h1>
+    <nav>
+        <a href="/">Início</a>
+        <a href="/login">Login</a>
+    </nav>
+</header>
+
+<main class="container">
+    <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+    <form class="form" method="POST" action="/register">
+        <label>Nome
+            <input type="text" name="name" required />
+        </label>
+        <label>Email
+            <input type="email" name="email" required />
+        </label>
+        <label>Senha
+            <input type="password" name="password" minlength="6" required />
+        </label>
+        <button type="submit">Cadastrar</button>
+    </form>
+</main>
+
+<footer class="site-footer">
+    <p>&copy; <%= new Date().getFullYear() %> Imóveis</p>
+</footer>
+</body>
+</html>
