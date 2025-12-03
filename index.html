@@ -9,13 +9,13 @@
 <header class="site-header">
     <h1>Imóveis - Listagem Pública</h1>
     <nav>
-        <a href="/">Início</a>
+        <a href="/" style="color:antiquewhite">Início</a>
         <% if (!currentUser) { %>
-            <a href="/login">Login</a>
-            <a href="/register">Cadastro</a>
+            <a href="/login" style="color:antiquewhite">Login</a>
+            <a href="/register" style="color:antiquewhite">Cadastro</a>
         <% } else { %>
-            <a href="/listings">Meus anúncios</a>
-            <a href="/listings/new">Novo anúncio</a>
+            <a href="/listings" style="color:antiquewhite">Meus anúncios</a>
+            <a href="/listings/new" style="color:antiquewhite">Novo anúncio</a>
             <form class="inline-form" method="POST" action="/logout">
                 <button type="submit">Sair (<%= currentUser.name %>)</button>
             </form>
